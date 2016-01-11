@@ -346,4 +346,24 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void) enableAdvertisingIdCollection: (CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    
+    if (! _trackerStarted) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Tracker not started"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        return;
+    }
+    
+    // Assumes a tracker has already been initialized with a property ID, otherwise
+    // getDefaultTracker returns nil.
+    id tracker = [[GAI sharedInstance] defaultTracker];
+
+    // Enable IDFA collection.
+    tracker.allowIDFACollection = YES;
+    
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 @end

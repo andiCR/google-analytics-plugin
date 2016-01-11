@@ -68,4 +68,9 @@ UniversalAnalyticsPlugin.prototype.enableUncaughtExceptionReporting = function (
   cordova.exec(success, error, 'UniversalAnalytics', 'enableUncaughtExceptionReporting', [enable]);
 };
 
+/* enable remarketing and advertising report features  https://support.google.com/analytics/answer/2444872*/
+UniversalAnalyticsPlugin.prototype.enableAdvertisingIdCollection = function (enable, success, error) {
+  cordova.exec(success, error, 'UniversalAnalytics', 'enableAdvertisingIdCollection', [enable]);
+};
+
 module.exports = new UniversalAnalyticsPlugin();

@@ -29,6 +29,7 @@ public class UniversalAnalyticsPlugin extends CordovaPlugin {
     public static final String SET_USER_ID = "setUserId";
     public static final String DEBUG_MODE = "debugMode";
     public static final String ENABLE_UNCAUGHT_EXCEPTION_REPORTING = "enableUncaughtExceptionReporting";
+    public static final String ENABLE_ADVERTISING_ID_COLLECTION = "enableAdvertisingIdCollection";
 
     public Boolean trackerStarted = false;
     public Boolean debugModeEnabled = false;
@@ -108,6 +109,8 @@ public class UniversalAnalyticsPlugin extends CordovaPlugin {
         } else if (ENABLE_UNCAUGHT_EXCEPTION_REPORTING.equals(action)) {
             Boolean enable = args.getBoolean(0);
             this.enableUncaughtExceptionReporting(enable, callbackContext);
+        } else if (ENABLE_ADVERTISING_ID_COLLECTION.equals(action)) {
+             this.enableAdvertisingIdCollection(callbackContext);
         }
         return false;
     }
@@ -320,5 +323,15 @@ public class UniversalAnalyticsPlugin extends CordovaPlugin {
 
         tracker.enableExceptionReporting(enable);
         callbackContext.success((enable ? "Enabled" : "Disabled") + " uncaught exception reporting");
+    }
+
+    private void enableAdvertisingIdCollection(CallbackContext callbackContext) {
+        if (! trackerStarted ) {
+            callbackContext.error("Tracker not started");
+            return;
+        }
+
+        tracker.enableAdvertisingIdCollection(true);
+        callbackContext.success("Enabled advertising reporting");
     }
 }
