@@ -358,7 +358,7 @@
     
     // Assumes a tracker has already been initialized with a property ID, otherwise
     // getDefaultTracker returns nil.
-    id tracker = [[GAI sharedInstance] defaultTracker];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
 
     // Enable IDFA collection.
     tracker.allowIDFACollection = YES;
